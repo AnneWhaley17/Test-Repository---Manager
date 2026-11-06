@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Manager Resource Hub – Draft</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#14224A;--navy2:#1d2f63;--gold:#FAB61E;--gold-d:#c88a00;--slate:#4A4A4A;--bg:#F4F6FB;--card:#fff;--ink:#1b2236;--muted:#5d6579;--line:#e3e7f0;--ok:#1f8a5b;--warn:#d97a00;--bad:#b3261e;
+--sh:0 1px 2px rgba(20,34,74,.06),0 6px 18px rgba(20,34,74,.07);--shh:0 2px 4px rgba(20,34,74,.08),0 14px 30px rgba(20,34,74,.14)}
+*{box-sizing:border-box}html,body{overflow-x:hidden}
+body{margin:0;font-family:Inter,"Segoe UI",system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55}
+h1,h2,h3,h4{font-family:Rajdhani,Bahnschrift,"Segoe UI Semibold","Arial Narrow",sans-serif;font-weight:700;margin:0;letter-spacing:.2px;line-height:1.15}
+a{color:inherit}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+/* nav */
+header.top{background:#fff;border-bottom:3px solid var(--gold);position:sticky;top:0;z-index:20}
+.nav{display:flex;align-items:center;gap:24px;height:68px}
+.logo{font-family:Rajdhani,Bahnschrift,"Segoe UI Semibold",sans-serif;font-weight:700;font-size:26px;letter-spacing:3px;color:var(--navy);line-height:.9;text-decoration:none}
+.logo small{display:block;font-family:Inter,"Segoe UI",system-ui,sans-serif;font-weight:500;font-size:10px;letter-spacing:5px;color:var(--slate)}
+nav.links{display:flex;gap:4px;margin-left:auto;flex-wrap:wrap}
+nav.links button{background:none;border:0;font:600 14px Inter,"Segoe UI",system-ui,sans-serif;color:var(--navy);padding:10px 12px;border-radius:8px;cursor:pointer}
+nav.links button:hover,nav.links button.on{background:var(--bg);box-shadow:inset 0 -3px 0 var(--gold)}
+button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+/* hero */
+.hero{background:linear-gradient(120deg,var(--navy) 0%,var(--navy) 55%,var(--navy2) 100%);color:#fff;position:relative;overflow:hidden;padding:56px 0 90px}
+.hero:after{content:"";position:absolute;right:-80px;top:-40px;width:520px;height:520px;background:var(--gold);opacity:.12;transform:skewX(-20deg)}
+.eyebrow{font:600 12px Inter,"Segoe UI",system-ui,sans-serif;letter-spacing:2px;text-transform:uppercase;color:var(--gold)}
+.hero h1{font-size:52px;margin:6px 0 8px}
+.hero p{max-width:560px;color:#cfd7ee;margin:0 0 22px}
+.search{position:relative;max-width:680px}
+.search input{width:100%;padding:17px 56px 17px 50px;border-radius:40px;border:0;font:500 16px Inter,"Segoe UI",system-ui,sans-serif;box-shadow:var(--shh)}
+.search .ic{position:absolute;left:18px;top:15px;font-size:20px;color:var(--gold-d)}
+.search .go{position:absolute;right:8px;top:8px;width:42px;height:42px;border-radius:50%;border:0;background:var(--gold);color:var(--navy);font-weight:700;cursor:pointer;font-size:18px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chip{border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.08);color:#fff;border-radius:20px;padding:6px 13px;font:500 13px Inter,"Segoe UI",system-ui,sans-serif;cursor:pointer;transition:.15s}
+.chip:hover{background:var(--gold);color:var(--navy);border-color:var(--gold)}
+#answer{display:none;max-width:680px;margin-top:14px;background:#fff;color:var(--ink);border-radius:14px;padding:16px 18px;box-shadow:var(--shh);font-size:14px}
+#answer b{color:var(--navy)}
+/* alert */
+.alert{margin:-34px auto 0;position:relative;z-index:3}
+.alert .in{background:#fff8e6;border:1px solid #f3d07a;border-left:6px solid var(--gold);border-radius:12px;padding:12px 16px;display:flex;gap:12px;align-items:center;box-shadow:var(--sh);font-size:14px}
+.alert button{margin-left:auto;background:none;border:0;font-size:20px;cursor:pointer;color:var(--muted)}
+/* tiles */
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(104px,1fr));gap:14px;margin-top:22px}
+.tile{background:var(--card);border-radius:16px;padding:16px 8px;text-align:center;box-shadow:var(--sh);text-decoration:none;font:600 13px Inter,"Segoe UI",system-ui,sans-serif;color:var(--navy);transition:.18s;border:1px solid transparent}
+.tile:hover{transform:translateY(-4px);box-shadow:var(--shh);border-color:var(--gold)}
+.tile i{display:grid;place-items:center;width:46px;height:46px;margin:0 auto 8px;border-radius:12px;background:var(--navy);color:var(--gold);font-style:normal;font-size:20px}
+section.blk{margin-top:44px}
+.sh{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.sh:before{content:"";width:5px;height:28px;background:var(--gold);border-radius:3px}
+.sh h2{font-size:30px;color:var(--navy)}
+.sh .more{margin-left:auto;font:600 13px Inter,"Segoe UI",system-ui,sans-serif;color:var(--navy2)}
+.grid2{display:grid;grid-template-columns:1.2fr 1fr;gap:22px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.card{background:var(--card);border-radius:18px;padding:22px;box-shadow:var(--sh)}
+.feature{display:flex;flex-direction:column;gap:8px;border-top:5px solid var(--gold);transition:.18s}
+.feature:hover{transform:translateY(-3px);box-shadow:var(--shh)}
+.tag{display:inline-block;font:700 11px Inter,"Segoe UI",system-ui,sans-serif;letter-spacing:1px;text-transform:uppercase;background:var(--navy);color:var(--gold);border-radius:6px;padding:3px 8px;width:max-content}
+.btn{display:inline-flex;align-items:center;gap:8px;font:700 14px Inter,"Segoe UI",system-ui,sans-serif;border-radius:10px;padding:11px 18px;border:2px solid var(--navy);cursor:pointer;text-decoration:none;transition:.15s}
+.btn.pri{background:var(--gold);border-color:var(--gold);color:var(--navy)}
+.btn.pri:hover{background:#ffc646}
+.btn.sec{background:#fff;color:var(--navy)}
+.btn.sec:hover{background:var(--navy);color:#fff}
+.btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+/* docs */
+.dsearch{width:100%;padding:12px 16px;border:1px solid var(--line);border-radius:30px;font:500 15px Inter,"Segoe UI",system-ui,sans-serif}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.filters button{border:1px solid var(--line);background:#fff;border-radius:20px;padding:6px 14px;font:600 13px Inter,"Segoe UI",system-ui,sans-serif;cursor:pointer;color:var(--navy)}
+.filters button.on,.filters button:hover{background:var(--navy);color:#fff;border-color:var(--navy)}
+.doc{display:flex;gap:12px;align-items:center;padding:11px 4px;border-bottom:1px solid var(--line);font-size:14px}
+.doc b{display:block;color:var(--navy)}
+.doc span.m{color:var(--muted);font-size:12px}
+.doc .ty{margin-left:auto;font:700 11px Inter,"Segoe UI",system-ui,sans-serif;background:var(--bg);padding:3px 8px;border-radius:6px;color:var(--slate)}
+/* feed */
+.feed .it{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);font-size:14px}
+.av{flex:none;width:42px;height:42px;border-radius:50%;background:var(--navy);color:var(--gold);display:grid;place-items:center;font:700 15px Rajdhani,Bahnschrift,"Segoe UI Semibold","Arial Narrow",sans-serif}
+.feed .m{color:var(--muted);font-size:12px}
+/* footer */
+footer{background:var(--navy);color:#aab4d3;margin-top:60px;padding:30px 0;font-size:13px}
+footer b{color:#fff}
+.note{background:#fff8e6;border:1px dashed var(--gold-d);padding:2px 7px;border-radius:5px;font-size:12px;color:#7a5600}
+/* discipline */
+.dhero{background:var(--navy);color:#fff;padding:44px 0 70px}
+.dhero h1{font-size:46px}
+.dhero p{color:#cfd7ee;max-width:640px}
+.pull{margin-top:-44px}
+.q{font:600 18px Inter,"Segoe UI",system-ui,sans-serif;color:var(--navy);margin-bottom:12px}
+.opts{display:grid;gap:10px}
+.opt{text-align:left;background:#fff;border:2px solid var(--line);border-radius:12px;padding:13px 16px;font:500 15px Inter,"Segoe UI",system-ui,sans-serif;cursor:pointer;transition:.15s}
+.opt:hover{border-color:var(--gold);transform:translateX(4px)}
+.result{padding:16px;border-radius:14px;background:var(--navy);color:#fff}
+.result h3{color:var(--gold);font-size:26px}
+.crumb{font-size:12px;color:var(--muted);margin-bottom:10px}
+.tabs{display:flex;gap:6px;border-bottom:2px solid var(--line);margin-bottom:20px;flex-wrap:wrap}
+.tabs button{background:none;border:0;font:700 17px Rajdhani,Bahnschrift,"Segoe UI Semibold","Arial Narrow",sans-serif;padding:12px 18px;cursor:pointer;color:var(--muted);border-bottom:4px solid transparent;margin-bottom:-2px}
+.tabs button.on{color:var(--navy);border-color:var(--gold)}
+.steps{counter-reset:s;display:grid;gap:12px}
+.step{display:grid;grid-template-columns:44px 1fr;gap:14px;background:#fff;border-radius:14px;padding:16px;box-shadow:var(--sh)}
+.step:before{counter-increment:s;content:counter(s);width:44px;height:44px;border-radius:12px;background:var(--navy);color:var(--gold);display:grid;place-items:center;font:700 22px Rajdhani,Bahnschrift,"Segoe UI Semibold","Arial Narrow",sans-serif}
+.step h4{font-size:20px;color:var(--navy)}
+.step p{margin:2px 0 6px;font-size:14px;color:var(--ink)}
+.meta{display:flex;gap:8px;flex-wrap:wrap}
+.pill{font:600 12px Inter,"Segoe UI",system-ui,sans-serif;border-radius:20px;padding:3px 10px;background:var(--bg);color:var(--navy);border:1px solid var(--line)}
+.pill.when{background:#fff4d6;border-color:#f3d07a}
+.ladder{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin:6px 0}
+.rung{padding:18px 14px 18px 22px;color:#fff;position:relative;clip-path:polygon(0 0,calc(100% - 18px) 0,100% 50%,calc(100% - 18px) 100%,0 100%,16px 50%);margin-left:-10px;min-height:118px}
+.rung:first-child{clip-path:polygon(0 0,calc(100% - 18px) 0,100% 50%,calc(100% - 18px) 100%,0 100%);margin-left:0;padding-left:16px}
+.rung:nth-child(1){background:#3b5aa8}.rung:nth-child(2){background:#2a3f7d}.rung:nth-child(3){background:var(--navy)}.rung:nth-child(4){background:#7a1b16}
+.rung h4{color:var(--gold);font-size:19px}.rung small{display:block;color:#dfe5f7;font-size:12px;line-height:1.4}
+.acc button{width:100%;text-align:left;background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px;font:600 15px Inter,"Segoe UI",system-ui,sans-serif;color:var(--navy);cursor:pointer;display:flex;justify-content:space-between;margin-top:8px}
+.acc button:hover{border-color:var(--gold)}
+.acc .pn{display:none;padding:12px 16px;font-size:14px;background:#fff;border:1px solid var(--line);border-top:0;border-radius:0 0 12px 12px;margin-top:-4px}
+.acc .pn.open{display:block}
+.check label{display:flex;gap:10px;padding:9px 0;border-bottom:1px solid var(--line);font-size:14px;cursor:pointer}
+.check input{width:18px;height:18px;accent-color:var(--navy)}
+.prog{height:8px;background:var(--line);border-radius:6px;margin:10px 0;overflow:hidden}
+.prog i{display:block;height:100%;width:0;background:var(--gold);transition:.25s}
+.hr{background:var(--navy);color:#fff;border-radius:18px;padding:22px}
+.hr h3{color:var(--gold);font-size:24px}
+.hr a{color:var(--gold)}
+.formbox{border:2px solid var(--line);border-radius:16px;padding:18px;background:#fff}
+.formbox h3{color:var(--navy);font-size:22px;margin-bottom:4px}
+.view{display:none}.view.on{display:block}
+@media(max-width:860px){.grid2,.grid3{grid-template-columns:1fr}.ladder{grid-template-columns:1fr 1fr}.rung,.rung:first-child{clip-path:none;margin:0;border-radius:10px}.hero h1,.dhero h1{font-size:36px}.nav{flex-wrap:wrap;height:auto;padding:10px 0}nav.links{margin-left:0}}
+.ptable{width:100%;border-collapse:collapse;font-size:14px}.ptable th{text-align:left;font:700 12px Inter,"Segoe UI",sans-serif;letter-spacing:1px;text-transform:uppercase;color:var(--muted);padding:6px 8px}
+.ptable td{padding:10px 8px;border-bottom:1px solid var(--line)}.ptable tbody tr:hover td{background:#fafbfe}
+.badge{display:inline-block;min-width:36px;text-align:center;border-radius:8px;padding:2px 9px;font-weight:700;background:var(--navy);color:var(--gold)}.badge.hi{background:#7a1b16;color:#fff}
+.fl{display:flex;flex-direction:column;gap:5px;font:600 13px Inter,"Segoe UI",sans-serif;color:var(--navy);margin-bottom:12px}
+.fl input[type=number],.fl select{padding:11px 12px;border:1px solid var(--line);border-radius:10px;font:500 15px Inter,"Segoe UI",sans-serif;background:#fff;width:100%}
+.rw .big{font:700 46px Rajdhani,Bahnschrift,"Segoe UI Semibold",sans-serif;color:var(--navy);margin:8px 0 2px;line-height:1}.rw p{margin:0;font-size:14px;color:var(--muted)}
+@media(max-width:860px){#calc{order:-1}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+
+.hero{background:radial-gradient(900px 400px at 85% 0%,rgba(250,182,30,.22),transparent 60%),repeating-linear-gradient(135deg,rgba(255,255,255,.035) 0 2px,transparent 2px 22px),linear-gradient(120deg,#0c1735,var(--navy) 55%,var(--navy2))}
+.hero h1{font-size:60px;font-weight:700;letter-spacing:.5px}.hero h1 span{color:var(--gold)}
+.hero:after{opacity:.1}
+.search input{height:60px;font-size:17px}.search .ic{top:18px}.search .go{top:9px;width:42px;height:42px}
+.tile i{width:52px;height:52px;border-radius:14px;background:linear-gradient(145deg,var(--navy2),var(--navy));box-shadow:0 6px 14px rgba(20,34,74,.25)}
+.tile{padding:20px 8px 16px;border-radius:18px}
+.card{border:1px solid rgba(20,34,74,.06);border-radius:20px;padding:26px}
+.sh h2{font-size:34px}.sh:before{height:32px;width:6px}
+.feature h3{font-size:28px;color:var(--navy)}
+.step{border:1px solid rgba(20,34,74,.06);border-radius:18px;padding:20px}
+.step h4{font-size:22px}.step:before{width:48px;height:48px;border-radius:14px;background:linear-gradient(145deg,var(--gold),#ffcf5c);color:var(--navy)}
+.step{grid-template-columns:48px 1fr}
+.btn{border-radius:12px;padding:13px 22px;letter-spacing:.2px}
+.btn.pri{box-shadow:0 6px 14px rgba(250,182,30,.35)}
+.btn svg{flex:none}
+.dhero{background:radial-gradient(800px 360px at 90% 0%,rgba(250,182,30,.22),transparent 60%),repeating-linear-gradient(135deg,rgba(255,255,255,.035) 0 2px,transparent 2px 22px),linear-gradient(120deg,#0c1735,var(--navy))}
+.dhero h1{font-size:56px}
+.ladder .rung h4{font-size:22px}
+.pill{padding:4px 12px}
+header.top{box-shadow:0 4px 18px rgba(20,34,74,.08)}
+.logo{font-size:28px}
+@media(max-width:860px){.hero h1{font-size:40px}.dhero h1{font-size:38px}.sh h2{font-size:28px}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap nav">
+ <a class="logo" href="#" onclick="show('home');return false">REVITALIZE<small>MIXERS</small></a>
+ <nav class="links" aria-label="Main">
+  <button class="on" data-v="home" onclick="show('home')">Home</button>
+  <button data-v="disc" onclick="show('disc')">Discipline Center</button>
+  <button onclick="alert('Draft: page 3 – Manager Resources')">Manager Resources</button>
+  <button onclick="alert('Draft: page 4 – Staff Directory')">Directory</button>
+  <button onclick="alert('Draft: page 5 – About')">About</button>
+  <button onclick="alert('Draft: page 6 – Forms Library')">Forms Library</button>
+ </nav></div></header>
+
+<!-- ============ HOME ============ -->
+<main id="home" class="view on">
+<section class="hero"><div class="wrap" style="position:relative;z-index:2">
+ <div class="eyebrow">Revitalize Mixers · Manager Resource Hub</div>
+ <h1>Welcome back, <span id="nm">[First Name]</span>.</h1>
+ <p>Everything you need to lead your team: policies, forms, and step-by-step guidance, in one place.</p>
+ <form class="search" onsubmit="ask(document.getElementById('q').value);return false" role="search">
+  <span class="ic"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8zM19 16l.7 2 2 .7-2 .7-.7 2-.7-2-2-.7 2-.7z"/></svg></span>
+  <input id="q" aria-label="Ask a question" placeholder="Ask a question in plain language…">
+  <button class="go" aria-label="Search">➤</button>
+ </form>
+ <div class="chips">
+  <button class="chip" onclick="ask(this.textContent)">How do I document a no-call/no-show?</button>
+  <button class="chip" onclick="ask(this.textContent)">When does a written warning apply?</button>
+  <button class="chip" onclick="ask(this.textContent)">Where is the safety incident form?</button>
+ </div>
+ <div id="answer" role="status"></div>
+</div></section>
+
+<div class="wrap alert" id="alertw"><div class="in"><span style="color:var(--gold-d)"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18v.5"/></svg></span><div><b>Alert [Sample]:</b> Update your discipline forms to the latest version before Monday. <span class="note">Admin: edit or delete this banner</span></div><button aria-label="Dismiss" onclick="document.getElementById('alertw').style.display='none'">×</button></div></div>
+
+<div class="wrap">
+ <div class="tiles" aria-label="Quick access">
+  <a class="tile" href="#"><i><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l3 2M9 2h6"/></svg></i>Timekeeping</a><a class="tile" href="#"><i><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2 20c0-3.5 3-6 7-6s7 2.5 7 6M17 5a3.5 3.5 0 010 7M19 14c2 .7 3 2.5 3 5"/></svg></i>HRIS</a><a class="tile" href="#"><i><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></i>Scheduling</a>
+  <a class="tile" href="#"><i><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V10l6 4v-4l6 4V6h3v15z"/></svg></i>Production</a><a class="tile" href="#"><i><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg></i>Safety Report</a><a class="tile" href="#"><i><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15v-3a8 8 0 0116 0v3"/><rect x="3" y="14" width="4" height="6" rx="1.5"/><rect x="17" y="14" width="4" height="6" rx="1.5"/></svg></i>IT Helpdesk</a>
+  <a class="tile" href="#"><i><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c3 2.5 9 2.5 12 0v-5"/></svg></i>Training</a><a class="tile" href="#"><i><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-8-5-8-11a4.5 4.5 0 018-2.5A4.5 4.5 0 0120 9c0 6-8 11-8 11z"/></svg></i>Benefits</a><a class="tile" href="#"><i><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></svg></i>Core Values</a>
+ </div>
+
+ <section class="blk"><div class="sh"><h2>Discipline Center</h2></div>
+  <div class="grid2" style="grid-template-columns:1fr 1fr 1fr">
+   <div class="card feature"><span class="tag">Start here</span><h3>Not sure which track?</h3><p style="margin:0;color:var(--muted);font-size:14px">Answer 2 quick questions and we'll point you to the right process and form.</p><div class="btns"><button class="btn pri" onclick="show('disc')">Find my track →</button></div></div>
+   <div class="card feature"><span class="tag">Track A</span><h3>Attendance Discipline</h3><p style="margin:0;color:var(--muted);font-size:14px">Points, tardies, call-outs, and no-call/no-shows.</p><div class="btns"><button class="btn sec" onclick="show('disc','A')">View process</button></div></div>
+   <div class="card feature"><span class="tag">Track B</span><h3>Standard Discipline</h3><p style="margin:0;color:var(--muted);font-size:14px">Performance, conduct, and policy violations.</p><div class="btns"><button class="btn sec" onclick="show('disc','B')">View process</button></div></div>
+  </div></section>
+
+ <section class="blk grid2">
+  <div><div class="sh"><h2>Documents &amp; Forms</h2></div>
+   <div class="card">
+    <input class="dsearch" id="ds" placeholder="Search forms, SOPs, templates…" aria-label="Search documents" oninput="fd()">
+    <div class="filters" id="df"><button class="on" data-f="All">All</button><button data-f="HR">HR</button><button data-f="Safety">Safety</button><button data-f="Production">Production</button><button data-f="Quality">Quality</button></div>
+    <div id="dl"></div>
+    <div style="margin-top:12px"><a class="more" href="#" style="font:600 13px Inter,"Segoe UI",system-ui,sans-serif">Open full Forms Library →</a></div>
+   </div></div>
+  <div><div class="sh"><h2>Recognition</h2></div>
+   <div class="card feed">
+    <div class="it"><div class="av">AB</div><div><b>Work anniversary</b> · [Name], 5 years<div class="m">Indiana · Paint Shop <span class="note">sample</span></div></div></div>
+    <div class="it"><div class="av">CD</div><div><b>New hire</b> · Welcome [Name], Welder<div class="m">South Carolina</div></div></div>
+    <div class="it"><div class="av">EF</div><div><b>Promotion</b> · [Name] is now Shift Lead<div class="m">Indiana · Refurbishing</div></div></div>
+    <div class="btns" style="margin-top:14px"><a class="btn pri" href="#">Recognize a team member</a></div>
+   </div></div>
+ </section>
+</div>
+</main>
+
+<!-- ============ DISCIPLINE CENTER ============ -->
+<main id="disc" class="view">
+<section class="dhero"><div class="wrap"><div class="eyebrow">Manager Resource Hub</div><h1>Discipline Center</h1>
+<p>Know exactly what to do, when to do it, and who to notify. Consistent, documented, and fair every time.</p></div></section>
+<div class="wrap pull">
+ <div class="grid2" style="grid-template-columns:1fr 1fr">
+  <div class="card" id="helper">
+   <span class="tag">Which track?</span>
+   <div id="hq" style="margin-top:12px"></div>
+  </div>
+  <div class="hr">
+   <h3>HR escalation &amp; contact</h3>
+   <p style="font-size:14px;color:#cfd7ee">Call HR before you act if the situation involves: harassment, safety, threats, injury, a protected leave, or possible termination.</p>
+   <p style="margin:6px 0"><b>[HR Contact Name]</b><br><a href="#">[hr@revitalizemixers.com]</a> · [phone]</p>
+   <p style="font-size:12px;color:#aab4d3;margin:0">Confidential. Do not discuss discipline with other employees.</p>
+  </div>
+ </div>
+
+ <section class="blk">
+  <div class="tabs" role="tablist"><button class="on" id="tA" onclick="tab('A')">Track A · Attendance</button><button id="tB" onclick="tab('B')">Track B · Standard</button></div>
+  <div id="pA"></div><div id="pB" style="display:none"></div>
+ </section>
+
+ <section class="blk"><div class="sh"><h2>Attendance points</h2></div>
+  <div class="grid2" style="grid-template-columns:1.35fr 1fr;align-items:start">
+   <div class="card"><table class="ptable"><thead><tr><th>Event</th><th style="width:70px">Points</th></tr></thead><tbody id="pts"></tbody></table>
+    <p style="font-size:13px;color:var(--muted);margin:12px 0 0">Points count for a rolling 12 months. Protected leave never earns points. Attendance and conduct warnings are tracked separately. <span class="note">Source: Employee Handbook</span></p></div>
+   <div class="card" id="calc"><span class="tag">Points calculator</span>
+    <h3 style="font-size:24px;color:var(--navy);margin:10px 0 12px">What action does this trigger?</h3>
+    <label class="fl">Employee's current points (last 12 months)<input type="number" id="cur" min="0" max="30" value="0"></label>
+    <label class="fl">New event<select id="evs"></select></label>
+    <label class="fl" style="flex-direction:row;align-items:center;gap:10px"><input type="checkbox" id="nh" style="width:18px;height:18px;accent-color:var(--navy)"> New hire (first 90 days)</label>
+    <div class="result" id="cres" style="margin-top:12px"></div></div>
+  </div></section>
+ <section class="blk"><div class="sh"><h2>Show Up &amp; Earn</h2></div>
+  <div class="grid3">
+   <div class="card rw"><span class="tag">Quarterly bonus</span><div class="big">$250</div><p>Zero new points in the quarter.<br>$225 for 1 point · $200 for 2 points.</p></div>
+   <div class="card rw"><span class="tag">Annual reward</span><div class="big">+1 PTO day</div><p>No no-call/no-shows at the location for the whole year.</p></div>
+   <div class="card rw"><span class="tag">Recognition</span><div class="big">Shout-out</div><p>Bonus earners are posted on the shop board and in Teams.</p></div>
+  </div>
+  <p style="font-size:13px;color:var(--muted);margin:12px 4px 0"><b>Eligibility:</b> active shop hourly employee on the payout date and not on a final written warning for attendance. Protected leave never breaks a streak. New hires qualify from their first full quarter after 90 days. Bonuses are paid through payroll and taxed as regular wages.</p>
+ </section>
+ <section class="blk"><div class="sh"><h2>Escalation ladder · Attendance</h2></div>
+  <div class="ladder">
+   <div class="rung"><h4>3 pts · Verbal</h4><small>Manager delivers; employee acknowledges; record files itself. New hires: 1 pt = written.</small></div>
+   <div class="rung"><h4>6 pts · Written</h4><small>HR reviews and approves; employee signs; signed copy filed.</small></div>
+   <div class="rung"><h4>9 pts · Final</h4><small>Same process as written. New hires: 3 pts = final.</small></div>
+   <div class="rung"><h4>12 pts · Termination</h4><small>Discuss with HR, then President approves. New hires: 6 pts.</small></div>
+  </div></section>
+
+ <section class="blk grid2">
+  <div><div class="sh"><h2>Before you submit</h2></div>
+   <div class="card check">
+    <div class="prog"><i id="pb"></i></div>
+    <label><input type="checkbox"> I have the facts: dates, times, and witnesses</label>
+    <label><input type="checkbox"> I checked the employee's prior record and active points</label>
+    <label><input type="checkbox"> I applied the policy the same way as for others in the same situation</label>
+    <label><input type="checkbox"> I gave the employee a chance to respond</label>
+    <label><input type="checkbox"> I used the right track and the right step</label>
+    <label><input type="checkbox"> HR notified, if this is a Final or involves a protected situation</label>
+    <div id="pt" style="font-size:13px;color:var(--muted);margin-top:8px">0 of 6 complete</div>
+   </div></div>
+  <div><div class="sh"><h2>Common mistakes</h2></div>
+   <div class="acc" id="acc">
+    <button>Skipping a step on the ladder <span>+</span></button><div class="pn">Jumping straight to Final without prior documentation puts the company at risk. [Placeholder: confirm policy exceptions]</div>
+    <button>Documenting opinions instead of facts <span>+</span></button><div class="pn">Write what happened, when, and who saw it, not how you feel about it.</div>
+    <button>Waiting too long to act <span>+</span></button><div class="pn">Submit within [X] working days of the incident. <span class="note">placeholder</span></div>
+    <button>Inconsistent treatment <span>+</span></button><div class="pn">Similar situations get similar outcomes. Check with HR if unsure.</div>
+   </div></div>
+ </section>
+</div>
+</main>
+
+<footer><div class="wrap"><b>Revitalize Mixers, LLC</b> · Hobart, IN · Loris, SC · Draft for approval. Bracketed items are placeholders.</div></footer>
+
+<script>
+const $=s=>document.querySelector(s);
+function show(v,t){document.querySelectorAll('.view').forEach(e=>e.classList.toggle('on',e.id===v));
+ document.querySelectorAll('nav.links button[data-v]').forEach(b=>b.classList.toggle('on',b.dataset.v===v));
+ scrollTo({top:0,behavior:'smooth'});if(t)tab(t)}
+function ask(t){if(!t)return;const a=$('#answer');a.style.display='block';
+ a.innerHTML='<b>Draft preview.</b> With Microsoft 365 Copilot, this would return a plain-language answer for “'+t.replace(/</g,'&lt;')+'” with links to the matching policy, SOP, and form from SharePoint. <span class="note">live in SharePoint</span>'}
+const docs=[["No-Call / No-Show Documentation Guide","HR","PDF"],["Attendance Discipline Form (printable)","HR","PDF"],["Standard Discipline Form (printable)","HR","PDF"],["Employee Handbook","HR","PDF"],["Incident &amp; Injury Report","Safety","Form"],["Lockout/Tagout Procedure","Safety","SOP"],["Paint Shop Quality Checklist","Quality","SOP"],["Refurbish Production Report","Production","Form"]];
+let cat='All';
+function fd(){const s=$('#ds').value.toLowerCase();$('#dl').innerHTML=docs.filter(d=>(cat==='All'||d[1]===cat)&&d[0].toLowerCase().includes(s)).map(d=>`<div class="doc"><span style="color:var(--navy2)"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a1 1 0 00-1 1v16a1 1 0 001 1h12a1 1 0 001-1V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></svg></span><div><b>${d[0]}</b><span class="m">${d[1]} · [updated date]</span></div><span class="ty">${d[2]}</span></div>`).join('')||'<p style="color:var(--muted)">No results.</p>'}
+document.querySelectorAll('#df button').forEach(b=>b.onclick=()=>{cat=b.dataset.f;document.querySelectorAll('#df button').forEach(x=>x.classList.toggle('on',x===b));fd()});fd();
+/* helper */
+const flow={start:{q:"What is the issue?",o:[["Late, absent, left early, or no-call/no-show","A"],["Work quality, safety, behavior, or policy violation","B"],["Both / I'm not sure","both"]]}};
+function hq(){ $('#hq').innerHTML='<div class="q">What is the issue?</div><div class="opts">'+flow.start.o.map((o,i)=>`<button class="opt" onclick="hres('${o[1]}')">${o[0]}</button>`).join('')+'</div>'}
+function hres(r){const m={A:["Track A · Attendance","Use the attendance points process and form."],B:["Track B · Standard","Use the performance and conduct process and form."],both:["Start with HR","Mixed or unclear issues: contact HR first, and they will tell you which track(s) apply."]}[r];
+ $('#hq').innerHTML=`<div class="result"><h3>${m[0]}</h3><p style="margin:6px 0 12px;font-size:14px">${m[1]}</p><div class="btns">${r!=='both'?`<button class="btn pri" onclick="tab('${r}');document.getElementById('p${r}').scrollIntoView({behavior:'smooth'})">See the steps ↓</button>`:''}<button class="btn sec" style="background:transparent;color:#fff;border-color:#fff" onclick="hq()">Start over</button></div></div>`}
+hq();
+/* tracks */
+function steps(arr){return '<div class="steps">'+arr.map(s=>`<div class="step"><div><h4>${s[0]}</h4><p>${s[1]}</p><div class="meta"><span class="pill when">${s[2]}</span><span class="pill">${s[3]}</span></div></div></div>`).join('')+'</div>'}
+function forms(n){return `<div class="formbox" style="margin-top:20px"><h3>${n}</h3><p style="margin:0 0 10px;color:var(--muted);font-size:14px">Same fields online and on paper.</p><div class="btns"><a class="btn pri" href="#">Submit online</a><a class="btn sec" href="#">Download printable PDF</a></div></div>`}
+$('#pA').innerHTML=steps([["Verify the occurrence","Confirm the date, time, and type in the timekeeping system. Check the employee's current 12-month points.","Same day","You"],["Assign points","Use the points table and calculator below. The total decides the level of action.","Same day","You"],["Open the case","Submit the Attendance Discipline Form. At 6 or 9 points (3 or 6 for 90-day new hires), HR reviews and approves before you meet.","[X] working day(s)","You → HR"],["Hold the conversation","Meet privately, share the facts, and let the employee respond. Employee signs; a refusal is noted with a witness (written warnings and above).","After approval","You + employee"],["File and notify","Signed copy goes to the employee file. At 12 points (6 for new hires), talk to HR first; the President approves before any termination meeting.","Same day","HR, President"]])+forms('Attendance Discipline Form');
+$('#pB').innerHTML=steps([["Document the facts","Record what happened, when, and who witnessed it. No opinions.","Same day","You"],["Check history &amp; policy","Review prior discipline and the policy that applies.","Before the meeting","You"],["Consult HR","Required for Final warnings and anything involving safety or protected situations.","Before acting","You → HR"],["Hold the conversation","Explain the issue, the expected change, and the consequence of no change.","Within [X] working days","You + employee"],["Complete the form","Choose the step: verbal, written, or final. Submit and file.","Within [X] days","You → HR"]])+forms('Standard Discipline Form');
+function tab(t){$('#pA').style.display=t==='A'?'block':'none';$('#pB').style.display=t==='B'?'block':'none';$('#tA').classList.toggle('on',t==='A');$('#tB').classList.toggle('on',t==='B')}
+/* points */
+const EV=[["Late","Late 6–15 min (after 5-min grace)",1],["Late","Late 16–59 min",2],["Late","Late 1–2 hours",3],["Late","Late over 2 hours, no call (= no call/no show)",6],["Late","Late call-in (under 1 hour's notice)",3],
+["Absence","Unplanned absence, reported and approved",1],["Absence","No call / no show",9],["Absence","Multiple-day unexcused: day 1",6],["Absence","Multiple-day unexcused: day 2",6],["Absence","Day 3 consecutive: HR review, may terminate",0],
+["Early leave","Early leave 1–15 min (unexcused)",1],["Early leave","Early leave 16–59 min (unexcused)",3],["Early leave","Early leave 1–2 hours (unexcused)",3],["Early leave","Early leave 2+ hours",6],["Early leave","Left mid-shift without approval (HR review, may terminate)",9]];
+let g='',h='';EV.forEach((e,i)=>{if(e[0]!==g){g=e[0];h+=`<tr><td colspan="2" style="background:var(--bg);font:700 13px Inter,'Segoe UI',sans-serif;letter-spacing:1px;text-transform:uppercase;color:var(--navy2)">${g}</td></tr>`}
+ h+=`<tr><td>${e[1]}</td><td><span class="badge${e[2]>=9?' hi':''}">${e[2]||'HR'}</span></td></tr>`});$('#pts').innerHTML=h;
+$('#evs').innerHTML=EV.map((e,i)=>`<option value="${i}">${e[1]} (${e[2]||'HR review'})</option>`).join('');
+function lvl(t,nh){const L=nh?[[6,'Termination review','HR review, then President approves.'],[3,'Final written warning','HR reviews and approves; employee signs.'],[1,'Written warning','HR reviews and approves; employee signs.']]:[[12,'Termination review','Discuss with HR, then President approves.'],[9,'Final written warning','HR reviews and approves; employee signs.'],[6,'Written warning','HR reviews and approves; employee signs.'],[3,'Verbal warning','You deliver it; employee acknowledges.']];for(const l of L)if(t>=l[0])return l;return null}
+function calc(){const c=+$('#cur').value||0,e=EV[$('#evs').value],nh=$('#nh').checked,t=c+e[2],l=lvl(t,nh),old=lvl(c,nh);
+ let m=`<div style="font-size:13px;color:#cfd7ee">New total: <b style="color:#fff;font-size:18px">${t} points</b> (${c} + ${e[2]})</div>`;
+ m+=l?`<h3>${l[1]}</h3><p style="margin:4px 0 0;font-size:14px">${l[2]}${old&&old[1]===l[1]?' Already at this level; consider whether the next level now applies.':''}</p>`:`<h3>No warning level</h3><p style="margin:4px 0 0;font-size:14px">Record the points. No corrective action yet.</p>`;
+ if(!e[2])m+='<p style="margin:8px 0 0;font-size:13px;color:var(--gold)">This event goes to HR for review and may result in termination.</p>';$('#cres').innerHTML=m}
+['cur','evs','nh'].forEach(i=>$('#'+i).addEventListener('input',calc));calc();
+/* checklist + accordion */
+const cbs=[...document.querySelectorAll('.check input')];
+cbs.forEach(c=>c.onchange=()=>{const n=cbs.filter(x=>x.checked).length;$('#pb').style.width=n/cbs.length*100+'%';$('#pt').textContent=n+' of '+cbs.length+' complete'});
+document.querySelectorAll('#acc button').forEach(b=>b.onclick=()=>{const p=b.nextElementSibling;p.classList.toggle('open');b.lastElementChild.textContent=p.classList.contains('open')?'−':'+'});
+</script>
+</body>
+</html>
